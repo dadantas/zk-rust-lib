@@ -15,6 +15,7 @@ use ark_std::UniformRand;
 use color_eyre::eyre::{Result, WrapErr};
 use memmap2::Mmap;
 
+#[allow(dead_code)]
 pub async fn gen_proof(
     inputs: HashMap<String, Vec<num_bigint::BigInt>>,
     zkey: &(ark_groth16::ProvingKey<Bn254>, ark_relations::r1cs::ConstraintMatrices<Fr>),
@@ -61,7 +62,7 @@ pub async fn gen_proof(
     proof_bytes
 }
 
-
+#[allow(dead_code)]
 pub async fn verify_proof(
     pvk: &PreparedVerifyingKey<Bn254>,
     public: &Vec<<ark_ec::models::bn::Bn<ark_bn254::Config> as ark_ec::pairing::Pairing>::ScalarField>,
@@ -82,6 +83,7 @@ pub async fn verify_proof(
 
 
 //source from ark-zkey crate, but removed print statements
+#[allow(dead_code)]
 pub fn read_arkzkey_no_print(arkzkey_path: &str) -> Result<(ProvingKey<Bn254>, ConstraintMatrices<Fr>)> {
     // let now = std::time::Instant::now();
     let arkzkey_file_path = std::path::PathBuf::from(arkzkey_path);
@@ -126,8 +128,10 @@ pub fn read_arkzkey_no_print(arkzkey_path: &str) -> Result<(ProvingKey<Bn254>, C
 }
 
 
+#[allow(dead_code)]
 pub fn extract_pvk(path: &String, out: &String) {
-    let (params, _) = read_arkzkey(path).unwrap();
+    let mut file = File::open(path).unwrap();
+    let (params, _) = ark_circom::read_zkey(&mut file).unwrap();
 
     let pvk = Groth16::<Bn254>::process_vk(&params.vk).unwrap();
 
@@ -137,7 +141,7 @@ pub fn extract_pvk(path: &String, out: &String) {
 
     log::info!("Prepared Verifying Key extracted successfully");
 }
-
+#[allow(dead_code)]
 pub fn load_pvk(path: &String) -> ark_groth16::PreparedVerifyingKey<Bn254> {
     let file = File::open(path).unwrap();
     let reader = BufReader::new(file);

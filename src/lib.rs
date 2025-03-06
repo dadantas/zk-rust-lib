@@ -27,7 +27,7 @@ static ZKEY_DATA: Lazy<Mutex<Option<(ark_groth16::ProvingKey<Bn254>, ConstraintM
 // should be used a single time to read the zkey
 pub extern "C" fn read_zkey(path: *const std::os::raw::c_char) -> i32 {
     let c_str = unsafe { CStr::from_ptr(path) };
-    let path_str = c_str.to_str().unwrap_or("setup/keys/aes_test.arkzkey"); // default path
+    let path_str = c_str.to_str().unwrap_or("setup/keys/aes_test_0001.zkey"); // default path TODO: change to a error
     let mut file = File::open(path_str).unwrap();
     let (params, matrices) = ark_circom::read_zkey(&mut file).unwrap();
     let mut data = ZKEY_DATA.lock().unwrap();
