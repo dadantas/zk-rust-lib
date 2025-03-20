@@ -36,4 +36,4 @@ color-eyre = "0.6.3"
 
 [lib]
 name = "rust_zksnark"  # Library name
-crate-type = ["cdylib"]  # For C-compatible dynamic libraries
+crate-type = ["cdylib", "rlib"]  # For C-compatible dynamic libraries
