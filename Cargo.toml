@@ -1,5 +1,5 @@
 [package]
-name = "zk-rust-lib"
+name = "rust_zksnark"
 version = "0.1.0"
 edition = "2021"
 
@@ -35,5 +35,5 @@ memmap2 = "0.9.5"
 color-eyre = "0.6.3"
 
 [lib]
-name = "rust_library"  # Library name
+name = "rust_zksnark"  # Library name
 crate-type = ["cdylib"]  # For C-compatible dynamic libraries
